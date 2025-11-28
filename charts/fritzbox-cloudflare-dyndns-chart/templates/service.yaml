@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fritzbox-cloudflare-dyndns-chart.name" . }}-http
+  labels:
+    {{ include "fritzbox-cloudflare-dyndns-chart.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ include "fritzbox-cloudflare-dyndns-chart.name" . }}
+  ports:
+    - name: http
+      port: {{ .Values.bindPort }}
+      targetPort: http

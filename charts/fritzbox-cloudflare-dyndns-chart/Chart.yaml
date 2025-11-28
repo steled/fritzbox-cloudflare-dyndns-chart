@@ -1,0 +1,7 @@
+apiVersion: v2
+name: fritzbox-cloudflare-dyndns-chart
+description: "Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus monitoring"
+type: application
+version: 0.1.0
+appVersion: "1"
+icon: https://raw.githubusercontent.com/steled/fritzbox-cloudflare-dyndns/main/docs/images/logo.png

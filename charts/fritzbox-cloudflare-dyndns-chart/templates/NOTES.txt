@@ -1,0 +1,9 @@
+1. Install the chart with defaults:
+
+  helm install my-dyndns ./fritzbox-cloudflare-dyndns-chart
+
+2. If you used plaintext secrets in values.yaml, be aware they will be stored as Kubernetes secrets.
+
+3. To use existing secrets instead of creating new ones, set useExistingSecrets=true and provide names for existingSecrets.cloudflareApiTokenName and existingSecrets.dyndnsServerPasswordName.
+
+4. To run as a DaemonSet (if you need it on every node), set useDaemonSet=true in values.yaml.

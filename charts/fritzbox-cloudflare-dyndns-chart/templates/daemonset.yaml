@@ -1,0 +1,71 @@
+{{- if .Values.useDaemonSet }}
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "fritzbox-cloudflare-dyndns-chart.name" . }}
+  labels:
+    {{ include "fritzbox-cloudflare-dyndns-chart.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ include "fritzbox-cloudflare-dyndns-chart.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "fritzbox-cloudflare-dyndns-chart.name" . }}
+      annotations:
+        checksum/secrets: "{{ if not .Values.useExistingSecrets }}{{ sha256sum (toYaml .Values.secrets) }}{{ end }}"
+    spec:
+      hostNetwork: {{ .Values.hostNetwork | quote }}
+      dnsPolicy: ClusterFirst
+      containers:
+        - name: updater
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: CLOUDFLARE_API_TOKEN_FILE
+              value: "/run/secrets/cloudflare_api_token"
+            - name: CLOUDFLARE_ZONES_IPV4
+              value: "{{ .Values.env.CLOUDFLARE_ZONES_IPV4 }}"
+            - name: CLOUDFLARE_ZONES_IPV6
+              value: "{{ .Values.env.CLOUDFLARE_ZONES_IPV6 }}"
+            - name: DYNDNS_SERVER_BIND
+              value: ":{{ .Values.bindPort }}"
+            - name: DYNDNS_SERVER_USERNAME
+              value: "{{ .Values.env.DYNDNS_SERVER_USERNAME }}"
+            - name: DYNDNS_SERVER_PASSWORD_FILE
+              value: "/run/secrets/dyndns_server_password"
+            - name: METRICS_BIND
+              value: ":9876"
+          ports:
+            - containerPort: {{ .Values.bindPort }}
+              name: http
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.readinessProbe.path }}
+              port: {{ .Values.readinessProbe.port }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.livenessProbe.path }}
+              port: {{ .Values.livenessProbe.port }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          volumeMounts:
+            - name: cloudflare-api-token
+              mountPath: /run/secrets/cloudflare_api_token
+              subPath: cloudflare_api_token
+              readOnly: true
+            - name: dyndns-server-password
+              mountPath: /run/secrets/dyndns_server_password
+              subPath: dyndns_server_password
+              readOnly: true
+      volumes:
+        - name : cloudflare-api-token
+          secret:
+            secretName: {{ if .Values.useExistingSecrets }}{{ .Values.existingSecrets.cloudflareApiTokenName }}{{ else }}{{ include "fritzbox-cloudflare-dyndns-chart.name" . }}-secrets{{ end }}
+        - name: dyndns-server-password
+          secret:
+            secretName: {{ if .Values.useExistingSecrets }}{{ .Values.existingSecrets.dyndnsServerPasswordName }}{{ else }}{{ include "fritzbox-cloudflare-dyndns-chart.name" . }}-secrets{{ end }}
+{{- end }}
