@@ -32,7 +32,7 @@ jobs:
 
       - name: Update Helm Chart version
         run: |
-          yq eval ".version=\"${{ steps.vars.outputs.version }}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
+          yq eval ".version=\"${VERSION}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
 
       - name: Package Helm Chart
         run: |
