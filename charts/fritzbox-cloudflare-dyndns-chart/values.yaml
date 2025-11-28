@@ -1,0 +1,75 @@
+replicaCount: 1
+useDaemonSet: false
+image:
+  repository: ghcr.io/cromefire/fritzbox-cloudflare-dyndns
+  tag: "1"
+  pullPolicy: IfNotPresent
+
+hostNetwork: false
+bindPort: 8080
+
+# Provide either secrets or set useExistingSecrets true and provide names
+useExistingSecrets: false
+secrets:
+  cloudflareApiToken: "" # plaintext token (will be placed into secret key 'token')
+  dyndnsServerPassword: "" # plaintext password (will be placed into secret key 'password')
+
+# If you prefer to reference already-created secrets:
+existingSecrets:
+  cloudflareApiTokenName: ""
+  dyndnsServerPasswordName: ""
+
+env:
+  CLOUDFLARE_ZONES_IPV4: "test.example.com"
+  CLOUDFLARE_ZONES_IPV6: "test.example.com"
+  DYNDNS_SERVER_USERNAME: "ddnsUser"
+
+resources:
+  requests:
+    cpu: "50m"
+    memory: "64Mi"
+  limits:
+    cpu: "200m"
+    memory: "128Mi"
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+  readOnlyRootFilesystem: true
+
+readinessProbe:
+  path: /healthz
+  port: 9876
+  initialDelaySeconds: 3
+  periodSeconds: 10
+
+livenessProbe:
+  path: /liveness
+  port: 9876
+  initialDelaySeconds: 10
+  periodSeconds: 20
+
+# Prometheus ServiceMonitor (requires Prometheus Operator)
+prometheus:
+  enabled: false
+  namespace: "default"
+  interval: 30s
+  scrapeTimeout: 10s
+  labels: {}
+
+# Pod scheduling
+affinity: {}
+nodeSelector: {}
+tolerations: []
+
+# Pod annotations (useful to force rollout on secret change using checksum)
+podAnnotations: {}
+
+# RBAC
+serviceAccount:
+  create: false
+  name: ""
+
+# Additional labels
+labels: {}
