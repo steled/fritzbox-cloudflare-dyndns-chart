@@ -76,12 +76,12 @@ jobs:
           if [ -f index.yaml ]; then
             echo "Merging into existing index.yaml"
             helm repo index . \
-              --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY} \
+              --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/} \
               --merge index.yaml
           else
             echo "Creating new index.yaml"
             helm repo index . \
-              --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY}
+              --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}
           fi
 
       - name: Commit and push GH-PAGES changes
