@@ -30,9 +30,9 @@ jobs:
         run: |
           echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
-      # - name: Update Helm Chart version
-      #   run: |
-      #     yq eval ".version=\"${{ steps.vars.outputs.version }}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
+      - name: Update Helm Chart version
+        run: |
+          yq eval ".version=\"${{ steps.vars.outputs.version }}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
 
       - name: Package Helm Chart
         run: |
