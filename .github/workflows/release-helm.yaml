@@ -8,6 +8,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   release-chart:
@@ -16,36 +18,57 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Helm
-        uses: azure/setup-helm@v3
-        with:
-          version: v3.14.0
+        uses: azure/setup-helm@v4
 
       - name: Extract version from latest tag
         id: vars
         run: |
           echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+          echo "Detected VERSION=$VERSION"
 
       - name: Update Helm Chart version
         run: |
-          yq eval ".version=\"${VERSION}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
+          yq eval ".version = \"${VERSION#v}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
+          yq eval ".appVersion = \"${VERSION#v}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
 
       - name: Package Helm Chart
         run: |
-          helm package charts/fritzbox-cloudflare-dyndns-chart --version ${VERSION#v}
+          mkdir -p dist
+          helm package charts/fritzbox-cloudflare-dyndns-chart \
+            --version ${VERSION#v} \
+            --destination dist
 
-      # - name: Generate index.yaml
-      #   run: |
-      #     helm repo index repo --url https://$GITHUB_REPOSITORY_OWNER.github.io/$GITHUB_REPOSITORY/
+      - name: Prepare GH Pages repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: gh-pages
+          path: ghpages
 
-      - name: Publish Helm chart to GitHub Pages repo
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Merge index.yaml (if exists)
+        run: |
+          cd dist
+          if [ -f ../ghpages/index.yaml ]; then
+            echo "Merging with existing index.yaml..."
+            helm repo index . --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY} --merge ../ghpages/index.yaml
+          else
+            echo "Creating new index.yaml..."
+            helm repo index . --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY}
+          fi
+
+      - name: Generate Helm Chart index.yaml
+        run: |
+          helm repo index . --url https://$GITHUB_REPOSITORY_OWNER.github.io/$GITHUB_REPOSITORY/
+
+      - name: Publish Helm chart to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: .
+          publish_dir: dist
           keep_files: true
