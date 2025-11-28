@@ -2,8 +2,20 @@ apiVersion: v1
 entries:
   fritzbox-cloudflare-dyndns-chart:
   - apiVersion: v2
+    appVersion: 0.0.8
+    created: "2025-11-28T23:17:29.46896575Z"
+    description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
+      monitoring
+    digest: fca090ad1646349cf4605e98d59bb325f2f15e3a1281bf3d305f3df4de7cbb47
+    icon: https://raw.githubusercontent.com/steled/fritzbox-cloudflare-dyndns-chart/main/charts/fritzbox-cloudflare-dyndns-chart.png
+    name: fritzbox-cloudflare-dyndns-chart
+    type: application
+    urls:
+    - https://steled.github.io/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.8.tgz
+    version: 0.0.8
+  - apiVersion: v2
     appVersion: 0.0.7
-    created: "2025-11-28T21:50:13.525436394Z"
+    created: "2025-11-28T23:17:29.468623179Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 1d9a1513dfa8e9def9dff5865d15263aef67ef4b7e2618188313f9a142b8777b
@@ -11,11 +23,11 @@ entries:
     name: fritzbox-cloudflare-dyndns-chart
     type: application
     urls:
-    - https://steled.github.io/steled/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.7.tgz
+    - https://steled.github.io/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.7.tgz
     version: 0.0.7
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2025-11-28T21:50:13.525067345Z"
+    created: "2025-11-28T23:17:29.468264147Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 8912f2819a1ce1f5182089f7eafb50bcac2cd269ee0c0328d3433ffe20a2a198
@@ -23,11 +35,11 @@ entries:
     name: fritzbox-cloudflare-dyndns-chart
     type: application
     urls:
-    - https://steled.github.io/steled/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.6.tgz
+    - https://steled.github.io/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.6.tgz
     version: 0.0.6
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2025-11-28T21:50:13.524707413Z"
+    created: "2025-11-28T23:17:29.467916816Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 3a3de4aa044ac1a0545827fede663f40491321ccf73cd2d4edcc84be0bb839f6
@@ -35,11 +47,11 @@ entries:
     name: fritzbox-cloudflare-dyndns-chart
     type: application
     urls:
-    - https://steled.github.io/steled/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.5.tgz
+    - https://steled.github.io/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.5.tgz
     version: 0.0.5
   - apiVersion: v2
     appVersion: 0.0.4
-    created: "2025-11-28T21:50:13.524343263Z"
+    created: "2025-11-28T23:17:29.467585316Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: b9f933cb72040daca9e82d3dd805b110b48a7bbbcbfca892ab93ac74231fe0b1
@@ -47,11 +59,11 @@ entries:
     name: fritzbox-cloudflare-dyndns-chart
     type: application
     urls:
-    - https://steled.github.io/steled/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.4.tgz
+    - https://steled.github.io/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.4.tgz
     version: 0.0.4
   - apiVersion: v2
     appVersion: "1"
-    created: "2025-11-28T21:50:13.523927477Z"
+    created: "2025-11-28T23:17:29.467190727Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 54cc290fe4d33531611e6a45adf030124e0f86840e1ea1a9fb290e0623b737e5
@@ -59,6 +71,6 @@ entries:
     name: fritzbox-cloudflare-dyndns-chart
     type: application
     urls:
-    - https://steled.github.io/steled/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.3.tgz
+    - https://steled.github.io/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.3.tgz
     version: 0.0.3
-generated: "2025-11-28T21:50:13.52333443Z"
+generated: "2025-11-28T23:17:29.466704407Z"
