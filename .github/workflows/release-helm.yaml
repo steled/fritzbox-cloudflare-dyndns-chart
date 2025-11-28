@@ -1,12 +1,17 @@
 name: Release Helm Chart
 
 on:
-  push:
-    tags:
-      - "v*.*.*" # Semantic versioning tags
+  workflow_run:
+    workflows: ["Auto Tag Version"]
+    types:
+      - completed
+
+permissions:
+  contents: write
 
 jobs:
-  release:
+  release-chart:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -20,25 +25,27 @@ jobs:
         with:
           version: v3.14.0
 
-      - name: Extract version from tag
+      - name: Extract version from latest tag
         id: vars
-        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      - name: Update Chart version
         run: |
-          yq eval ".version=\"${{ steps.vars.outputs.version }}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
+          echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
-      - name: Package Chart
+      # - name: Update Helm Chart version
+      #   run: |
+      #     yq eval ".version=\"${{ steps.vars.outputs.version }}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
+
+      - name: Package Helm Chart
         run: |
-          mkdir -p repo
-          helm package charts/fritzbox-cloudflare-dyndns-chart -d repo
+          helm package charts/fritzbox-cloudflare-dyndns-chart --version ${VERSION#v}
 
-      - name: Generate index.yaml
-        run: |
-          helm repo index repo --url https://$GITHUB_REPOSITORY_OWNER.github.io/$GITHUB_REPOSITORY/
+      # - name: Generate index.yaml
+      #   run: |
+      #     helm repo index repo --url https://$GITHUB_REPOSITORY_OWNER.github.io/$GITHUB_REPOSITORY/
 
-      - name: Publish to GitHub Pages
+      - name: Publish Helm chart to GitHub Pages repo
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: repo
+          publish_branch: gh-pages
+          publish_dir: .
+          keep_files: true
