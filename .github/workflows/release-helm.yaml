@@ -54,10 +54,10 @@ jobs:
 
       - name: Package Helm Chart
         run: |
-          mkdir -p dist
+          mkdir -p packaged
           helm package charts/fritzbox-cloudflare-dyndns-chart \
             --version ${VERSION#v} \
-            --destination dist
+            --destination packaged
 
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
@@ -66,20 +66,32 @@ jobs:
           ref: gh-pages
           path: ghpages
 
-      - name: Update index.yaml
+      - name: Merge packaged artifacts into gh-pages
         run: |
-          cd dist
-          if [ -f ../ghpages/index.yaml ]; then
-            echo "Updating existing index.yaml..."
-            helm repo index . --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY} --merge ../ghpages/index.yaml
+          mkdir -p ghpages
+          cp packaged/*.tgz ghpages/
+
+          cd ghpages
+
+          if [ -f index.yaml ]; then
+            echo "Merging into existing index.yaml"
+            helm repo index . \
+              --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY} \
+              --merge index.yaml
           else
-            echo "Creating new index.yaml..."
-            helm repo index . --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY}
+            echo "Creating new index.yaml"
+            helm repo index . \
+              --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY}
           fi
 
-      - name: Copy existing files (keeps older packages)
+      - name: Commit and push GH-PAGES changes
         run: |
-          cp -r ghpages/* dist/ || true
+          cd ghpages
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update helm repo for ${VERSION#v}" || echo "Nothing to commit"
+          git push origin gh-pages
 
       - name: Publish Helm chart to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
