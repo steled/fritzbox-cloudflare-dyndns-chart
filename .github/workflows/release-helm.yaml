@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout main branch
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
@@ -31,10 +31,26 @@ jobs:
           echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
           echo "Detected VERSION=$VERSION"
 
+      - name: Helm Lint
+        run: |
+          helm lint charts/fritzbox-cloudflare-dyndns-chart
+
       - name: Update Helm Chart version
         run: |
           yq eval ".version = \"${VERSION#v}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
           yq eval ".appVersion = \"${VERSION#v}\"" -i charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
+
+      - name: Commit updated Chart.yaml
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add charts/fritzbox-cloudflare-dyndns-chart/Chart.yaml
+          git commit -m "Update chart version to ${VERSION#v}" || echo "No changes to commit"
+          git push origin HEAD:main
+
+      - name: Helm install test (dry-run)
+        run: |
+          helm install test charts/fritzbox-cloudflare-dyndns-chart --dry-run --debug
 
       - name: Package Helm Chart
         run: |
@@ -43,18 +59,18 @@ jobs:
             --version ${VERSION#v} \
             --destination dist
 
-      - name: Prepare GH Pages repo
+      - name: Checkout gh-pages branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: gh-pages
           path: ghpages
 
-      - name: Merge index.yaml (if exists)
+      - name: Update index.yaml
         run: |
           cd dist
           if [ -f ../ghpages/index.yaml ]; then
-            echo "Merging with existing index.yaml..."
+            echo "Updating existing index.yaml..."
             helm repo index . --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY} --merge ../ghpages/index.yaml
           else
             echo "Creating new index.yaml..."
