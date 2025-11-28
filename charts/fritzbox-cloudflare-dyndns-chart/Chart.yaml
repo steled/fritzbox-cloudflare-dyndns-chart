@@ -4,4 +4,4 @@ description: "Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometh
 type: application
 version: 0.1.0
 appVersion: "1"
-icon: https://raw.githubusercontent.com/steled/fritzbox-cloudflare-dyndns/main/docs/images/logo.png
+icon: https://raw.githubusercontent.com/steled/fritzbox-cloudflare-dyndns-chart/main/charts/fritzbox-cloudflare-dyndns-chart.png
