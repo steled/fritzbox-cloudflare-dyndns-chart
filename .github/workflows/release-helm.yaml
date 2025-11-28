@@ -61,9 +61,9 @@ jobs:
             helm repo index . --url https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY}
           fi
 
-      - name: Generate Helm Chart index.yaml
+      - name: Copy existing files (keeps older packages)
         run: |
-          helm repo index . --url https://$GITHUB_REPOSITORY_OWNER.github.io/$GITHUB_REPOSITORY/
+          cp -r ghpages/* dist/ || true
 
       - name: Publish Helm chart to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
