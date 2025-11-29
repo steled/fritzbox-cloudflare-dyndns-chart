@@ -6,7 +6,7 @@ Designed as a replacement for the FRITZ!Box DynDNS feature and ideal for
 GitOps-driven environments.
 
 This chart uses the container image:\
-👉 **cromefire/fritzbox-cloudflare-dyndns**
+👉 **[cromefire/fritzbox-cloudflare-dyndns](https://github.com/cromefire/fritzbox-cloudflare-dyndns)**
 
 ------------------------------------------------------------------------
 
