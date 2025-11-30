@@ -12,7 +12,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: {{ include "fritzbox-cloudflare-dyndns-chart.name" . }}
+      {{ include "fritzbox-cloudflare-dyndns-chart.labels" . | nindent 6 }}
   namespaceSelector:
     any: false
     matchNames:
