@@ -18,7 +18,7 @@ spec:
     matchNames:
       - {{ .Release.Namespace }}
   endpoints:
-    - port: http
+    - port: metrics
       interval: {{ .Values.prometheus.interval }}
       scrapeTimeout: {{ .Values.prometheus.scrapeTimeout }}
       path: /metrics
