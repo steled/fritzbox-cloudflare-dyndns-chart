@@ -7,8 +7,13 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: {{ include "fritzbox-cloudflare-dyndns-chart.name" . }}
+    {{ include "fritzbox-cloudflare-dyndns-chart.labels" . | nindent 4 }}
   ports:
     - name: http
       port: {{ .Values.bindPort }}
       targetPort: http
+    {{- if .Values.prometheus.enabled }}
+    - name: metrics
+      port: 9876
+      targetPort: metrics
+    {{- end }}

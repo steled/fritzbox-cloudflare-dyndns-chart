@@ -9,11 +9,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "fritzbox-cloudflare-dyndns-chart.name" . }}
+      {{ include "fritzbox-cloudflare-dyndns-chart.labels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ include "fritzbox-cloudflare-dyndns-chart.name" . }}
+        {{ include "fritzbox-cloudflare-dyndns-chart.labels" . | nindent 8 }}
       annotations:
         checksum/secrets: "{{ if not .Values.useExistingSecrets }}{{ sha256sum (toYaml .Values.secrets) }}{{ end }}"
         {{- with .Values.podAnnotations }}
@@ -52,6 +52,8 @@ spec:
           ports:
             - containerPort: {{ .Values.bindPort }}
               name: http
+            - containerPort: 9876
+              name: metrics
           readinessProbe:
             httpGet:
               path: {{ .Values.readinessProbe.path }}
