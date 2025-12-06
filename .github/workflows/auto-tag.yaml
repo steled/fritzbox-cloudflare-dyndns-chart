@@ -1,4 +1,4 @@
-name: Auto Tag Version
+name: 🦾 Auto Tag Version
 
 on:
   push:
