@@ -7,9 +7,10 @@ on:
     - cron: '0 2 * * 5'
 
 permissions:
-  contents: read
-  pull-requests: write
-  security-events: read
+  contents: write               # required for pushing changes + deleting branches
+  pull-requests: write          # approve + merge
+  issues: write                 # comments etc.
+  security-events: read         # optional, for vulnerability alerts
 
 jobs:
   renovate:
