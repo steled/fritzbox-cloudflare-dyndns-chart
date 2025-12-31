@@ -47,12 +47,6 @@ spec:
               value: "{{ .Values.env.DYNDNS_SERVER_USERNAME }}"
             - name: DYNDNS_SERVER_PASSWORD_FILE
               value: "/run/secrets/dyndns_server_password"
-            - name: FRITZBOX_ENDPOINT_URL
-              value: "{{ .Values.env.FRITZBOX_ENDPOINT_URL | default "http://fritz.box:49000" }}"
-            - name: FRITZBOX_ENDPOINT_INTERVAL
-              value: "{{ .Values.env.FRITZBOX_ENDPOINT_INTERVAL | default "" }}"
-            - name: FRITZBOX_ENDPOINT_TIMEOUT
-              value: "{{ .Values.env.FRITZBOX_ENDPOINT_TIMEOUT | default "30s" }}"
             - name: METRICS_BIND
               value: ":9876"
           ports:
