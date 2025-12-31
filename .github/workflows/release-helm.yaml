@@ -2,7 +2,7 @@ name: ⎈ Release Helm Chart
 
 on:
   workflow_run:
-    workflows: ["Auto Tag Version"]
+    workflows: ["🦾 Auto Tag Version"]
     types:
       - completed
 
