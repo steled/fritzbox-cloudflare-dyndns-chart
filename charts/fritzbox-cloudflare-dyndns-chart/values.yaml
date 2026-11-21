@@ -39,7 +39,7 @@ securityContext:
   readOnlyRootFilesystem: true
 
 readinessProbe:
-  path: /healthz
+  path: /liveness
   port: 9876
   initialDelaySeconds: 3
   periodSeconds: 10
