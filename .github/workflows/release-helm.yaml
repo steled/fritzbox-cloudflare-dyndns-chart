@@ -85,11 +85,3 @@ jobs:
           git add .
           git commit -m "Update helm repo for ${VERSION#v}" || echo "Nothing to commit"
           git push origin gh-pages
-
-      - name: Publish Helm chart to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: dist
-          keep_files: true
