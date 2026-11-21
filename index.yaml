@@ -2,8 +2,20 @@ apiVersion: v1
 entries:
   fritzbox-cloudflare-dyndns-chart:
   - apiVersion: v2
+    appVersion: 0.0.19
+    created: "2026-11-21T17:10:53.841554765Z"
+    description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
+      monitoring
+    digest: 0c23150a413dba740bb1cae9ffbbe86f5b2b843d45516e4a7da4fe50faf62255
+    icon: https://raw.githubusercontent.com/steled/fritzbox-cloudflare-dyndns-chart/main/charts/fritzbox-cloudflare-dyndns-chart.png
+    name: fritzbox-cloudflare-dyndns-chart
+    type: application
+    urls:
+    - https://steled.github.io/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.19.tgz
+    version: 0.0.19
+  - apiVersion: v2
     appVersion: 0.0.18
-    created: "2026-11-21T17:04:20.374305392Z"
+    created: "2026-11-21T17:10:53.841167314Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 74490de81de0a34c877ae79e734281f39bfa47e221773f83175dde00085d1f81
@@ -15,7 +27,7 @@ entries:
     version: 0.0.18
   - apiVersion: v2
     appVersion: 0.0.17
-    created: "2026-11-21T17:04:20.373935453Z"
+    created: "2026-11-21T17:10:53.840819381Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 450dd003731df122ea36eabdc99efc0b4c37ea80e86372aecf048b41e2658f4d
@@ -27,7 +39,7 @@ entries:
     version: 0.0.17
   - apiVersion: v2
     appVersion: 0.0.10
-    created: "2026-11-21T17:04:20.373497887Z"
+    created: "2026-11-21T17:10:53.840337535Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 4d8a9dc95be4daf8bdc7e404d78e3390e5289abcf8e762d6aa4d823cfbf50aaa
@@ -39,7 +51,7 @@ entries:
     version: 0.0.10
   - apiVersion: v2
     appVersion: 0.0.9
-    created: "2026-11-21T17:04:20.376951555Z"
+    created: "2026-11-21T17:10:53.843937102Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: e059c37c1a0db2cccfb9d15dcadffa47fa9a82c52e4674247d14b27f59354a1b
@@ -51,7 +63,7 @@ entries:
     version: 0.0.9
   - apiVersion: v2
     appVersion: 0.0.8
-    created: "2026-11-21T17:04:20.376603066Z"
+    created: "2026-11-21T17:10:53.843575108Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: fca090ad1646349cf4605e98d59bb325f2f15e3a1281bf3d305f3df4de7cbb47
@@ -63,7 +75,7 @@ entries:
     version: 0.0.8
   - apiVersion: v2
     appVersion: 0.0.7
-    created: "2026-11-21T17:04:20.376239889Z"
+    created: "2026-11-21T17:10:53.843210489Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 1d9a1513dfa8e9def9dff5865d15263aef67ef4b7e2618188313f9a142b8777b
@@ -75,7 +87,7 @@ entries:
     version: 0.0.7
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2026-11-21T17:04:20.375892401Z"
+    created: "2026-11-21T17:10:53.842877731Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 8912f2819a1ce1f5182089f7eafb50bcac2cd269ee0c0328d3433ffe20a2a198
@@ -87,7 +99,7 @@ entries:
     version: 0.0.6
   - apiVersion: v2
     appVersion: 0.0.5
-    created: "2026-11-21T17:04:20.375520077Z"
+    created: "2026-11-21T17:10:53.842573248Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 3a3de4aa044ac1a0545827fede663f40491321ccf73cd2d4edcc84be0bb839f6
@@ -99,7 +111,7 @@ entries:
     version: 0.0.5
   - apiVersion: v2
     appVersion: 0.0.4
-    created: "2026-11-21T17:04:20.37513004Z"
+    created: "2026-11-21T17:10:53.842226195Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: b9f933cb72040daca9e82d3dd805b110b48a7bbbcbfca892ab93ac74231fe0b1
@@ -111,7 +123,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: "1"
-    created: "2026-11-21T17:04:20.374747787Z"
+    created: "2026-11-21T17:10:53.841888538Z"
     description: Helm chart for Fritz!Box -> Cloudflare DynDNS updater with Prometheus
       monitoring
     digest: 54cc290fe4d33531611e6a45adf030124e0f86840e1ea1a9fb290e0623b737e5
@@ -121,4 +133,4 @@ entries:
     urls:
     - https://steled.github.io/fritzbox-cloudflare-dyndns-chart/fritzbox-cloudflare-dyndns-chart-0.0.3.tgz
     version: 0.0.3
-generated: "2026-11-21T17:04:20.372896246Z"
+generated: "2026-11-21T17:10:53.839375512Z"
